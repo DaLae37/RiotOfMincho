@@ -3,6 +3,7 @@
 #include <Zero.h>
 #include "ZeroConsole.h"
 #include "mainScene.h"
+#include "Def.h"
 //이 변수를 주석처리하면 콘솔창 안뜬다.
 ZeroConsole g_Console;
 
@@ -10,7 +11,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT)
 {
 	int WindowWidth = 1280;
 	int WindowHeight = 720;
-
 	ZeroApp->RegisterWindowSize(WindowWidth, WindowHeight);
 	WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, ZeroApp->MsgProc, 0L, 0L,
 		GetModuleHandle(NULL), NULL, NULL, NULL, NULL,

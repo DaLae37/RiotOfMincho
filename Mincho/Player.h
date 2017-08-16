@@ -2,11 +2,9 @@
 #include "ZeroIScene.h"
 #include "ZeroSprite.h"
 #include "ZeroInputManager.h"
-enum class STATUE {
-	MOVE,
-	ATACK,
-	NONE,
-};
+#include <utility>
+#include "Def.h"
+
 class Player :
 	public ZeroIScene
 {
@@ -16,14 +14,18 @@ public:
 	ZeroSprite *player;
 	int playerNum;
 	int qeek;
+	int hp;
 	bool playerDo[2];
 	bool isInputDone();
+	pair<int, int> pos;
+	pair<int, int> tmpPos;
+	pair<int, int> spawnPos;
 	int inputStackX[2];
 	int inputStackY[2];
 	STATUE statue[2];
 	void Render();
 	void Update(float eTime);
 	void CheckInput();
-	void Result();
+	bool Check(int x, int y);
 };
 

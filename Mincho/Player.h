@@ -11,7 +11,7 @@ class Player :
 public:
 	Player(int playerNum);
 	~Player();
-	ZeroSprite *player;
+	ZeroSprite *player[2];
 	int playerNum;
 	int qeek;
 	int hp;

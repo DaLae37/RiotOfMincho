@@ -6,7 +6,8 @@ Player::Player(int playerNum)
 	this->playerNum = playerNum;
 	qeek = 0;
 	hp = 3;
-	player = new ZeroSprite("Resource/Player/Player.png");
+	player[0] = new ZeroSprite("Resource/Player/Player1.png");
+	player[1] = new ZeroSprite("Resource/Player/Player2.png");
 	for (int i = 0; i < 2; i++) {
 		inputStackX[i] = 0;
 		inputStackY[i] = 0;
@@ -16,18 +17,18 @@ Player::Player(int playerNum)
 	spawnPos.first = rand() % 5;
 	spawnPos.second = rand() % 5;
 	if (playerNum == 1) {
-		player->SetPos(280 + spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
+		player[playerNum-1]->SetPos(280 + spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
 		pos.first = 0 + spawnPos.first;
 		pos.second = 5 + spawnPos.second;
 	}
 	else if (playerNum == 2) {
-		player->SetPos(952 - spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
+		player[playerNum - 1]->SetPos(952 - spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
 		pos.first = 14 - spawnPos.first;
 		pos.second = 5 + spawnPos.second;
 	}
 	tmpPos.first = pos.first;
 	tmpPos.second = pos.second;
-	printf("%d %d", tmpPos.first, tmpPos.second);
+	printf("%d %d\n", tmpPos.first, tmpPos.second);
 }
 
 Player::~Player()
@@ -36,7 +37,7 @@ Player::~Player()
 
 void Player::Render() {
 	ZeroIScene::Render();
-	player->Render();
+	player[playerNum - 1]->Render();
 }
 
 void Player::Update(float eTime) {
@@ -50,28 +51,32 @@ void Player::CheckInput() {
 			if ((ZeroInputMgr->GetKey('W') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('w') == INPUTMGR_KEYDOWN) && Check(0,-1)) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = -1;
-				pos.second -= 1;
+				tmpPos.second -= 1;
+				printf("p1 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
 			else if ((ZeroInputMgr->GetKey('A') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('a') == INPUTMGR_KEYDOWN) && Check(-1, 0)) {
 				inputStackX[qeek] = -1;
 				inputStackY[qeek] = 0;
-				pos.first -= 1;
+				tmpPos.first -= 1;
+				printf("p1 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
 			else if ((ZeroInputMgr->GetKey('S') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('s') == INPUTMGR_KEYDOWN) && Check(0, 1)) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = 1;
-				pos.second += 1;
+				tmpPos.second += 1;
+				printf("p1 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
 			else if ((ZeroInputMgr->GetKey('D') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('d') == INPUTMGR_KEYDOWN) && Check(1, 0)) {
 				inputStackX[qeek] = 1;
 				inputStackY[qeek] = 0;
-				pos.first += 1;
+				tmpPos.first += 1;
+				printf("p1 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
@@ -79,24 +84,28 @@ void Player::CheckInput() {
 			else if (ZeroInputMgr->GetKey('T') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('t') == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = -1;
+				printf("%d : player1InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey('F') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('f') == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = -1;
 				inputStackY[qeek] = 0;
+				printf("%d : player1InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey('G') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('g') == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = 1;
+				printf("%d : player1InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey('H') == INPUTMGR_KEYDOWN || ZeroInputMgr->GetKey('h') == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 1;
 				inputStackY[qeek] = 0;
+				printf("%d : player1InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
@@ -115,28 +124,32 @@ void Player::CheckInput() {
 			if (ZeroInputMgr->GetKey(VK_UP) == INPUTMGR_KEYDOWN && Check(0, -1)) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = -1;
-				pos.second -= 1;
+				tmpPos.second -= 1;
+				printf("p2 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey(VK_LEFT) == INPUTMGR_KEYDOWN && Check(-1, 0)) {
 				inputStackX[qeek] = -1;
 				inputStackY[qeek] = 0;
-				pos.first -= 1;
+				tmpPos.first -= 1;
+				printf("p2 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey(VK_DOWN) == INPUTMGR_KEYDOWN && Check(0, 1)) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = 1;
-				pos.second += 1;
+				tmpPos.second += 1;
+				printf("p2 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey(VK_RIGHT) == INPUTMGR_KEYDOWN && Check(1, 0)) {
 				inputStackX[qeek] = 1;
 				inputStackY[qeek] = 0;
-				pos.first += 1;
+				tmpPos.first += 1;
+				printf("p2 pos = %d %d\n", tmpPos.first, tmpPos.second);
 				statue[qeek] = STATUE::MOVE;
 				playerDo[qeek++] = true;
 			}
@@ -144,29 +157,33 @@ void Player::CheckInput() {
 			else if (ZeroInputMgr->GetKey(VK_HOME) == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = -1;
+				printf("%d : player2InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey(VK_DELETE) == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = -1;
 				inputStackY[qeek] = 0;
+				printf("%d : player2InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
 			else if (ZeroInputMgr->GetKey(VK_END) == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = 1;
+				printf("%d : player2InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
-			else if (ZeroInputMgr->GetKey(SB_PAGEDOWN) == INPUTMGR_KEYDOWN) {
+			else if (ZeroInputMgr->GetKey(VK_NEXT) == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 1;
 				inputStackY[qeek] = 0;
+				printf("%d : player2InputAttack\n", qeek);
 				statue[qeek] = STATUE::ATACK;
 				playerDo[qeek++] = true;
 			}
 			//player2 Hold
-			else if (ZeroInputMgr->GetKey(VK_RCONTROL) == INPUTMGR_KEYDOWN) {
+			else if (ZeroInputMgr->GetKey(VK_CONTROL) == INPUTMGR_KEYDOWN) {
 				inputStackX[qeek] = 0;
 				inputStackY[qeek] = 0;
 				statue[qeek] = STATUE::MOVE;
@@ -181,7 +198,7 @@ bool Player::isInputDone() {
 }
 
 bool Player::Check(int x, int y) {
-	if ((new Def)->map[x + pos.first][y + pos.second]) {
+	if ((new Def)->map[x + tmpPos.first][y + tmpPos.second] && x + tmpPos.first <=14 && x + tmpPos.first >= 0 && y + tmpPos.second <= 14 && y + tmpPos.second >= 0) {
 		printf("¤¡¤º");
 		return true;
 	}

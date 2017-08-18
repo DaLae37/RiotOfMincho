@@ -25,7 +25,7 @@ UI::UI()
 		player1Heart[i] = new ZeroSprite("Resource/UI/Heart.png");
 		player1Heart[i]->SetPos(i * 95, 115);
 		player2Heart[i] = new ZeroSprite("Resource/UI/Heart.png");
-		player2Heart[i]->SetPos(1000 + i * 95, 115);
+		player2Heart[i]->SetPos(1190 - i * 95, 115);
 		character[i] = new ZeroSprite("Resource/UI/Character%d.png", i+1);
 		player1HeartRender[i] = true;
 		player2HeartRender[i] = true;

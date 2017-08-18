@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <Zero.h>
 #include "ZeroConsole.h"
-#include "mainScene.h"
+#include "menuScene.h"
 #include "Def.h"
 //이 변수를 주석처리하면 콘솔창 안뜬다.
 ZeroConsole g_Console;
@@ -34,7 +34,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, INT)
 		UpdateWindow(hWnd);
 
 		//여기서 처음 시작하는 Scene을 정한다
-		ZeroSceneMgr->ChangeScene(new mainScene());
+		ZeroSceneMgr->ChangeScene(new menuScene());
 
 
 		MSG msg;

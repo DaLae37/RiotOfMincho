@@ -6,8 +6,9 @@ Player::Player(int playerNum)
 	this->playerNum = playerNum;
 	qeek = 0;
 	hp = 3;
-	player[0] = new ZeroSprite("Resource/Player/Player1.png");
-	player[1] = new ZeroSprite("Resource/Player/Player2.png");
+	for (int i = 0; i < 4; i++) {
+		player[i] = new ZeroSprite("Resource/Player/%d.png", i);
+	}
 	for (int i = 0; i < 2; i++) {
 		inputStackX[i] = 0;
 		inputStackY[i] = 0;
@@ -17,12 +18,14 @@ Player::Player(int playerNum)
 	spawnPos.first = rand() % 5;
 	spawnPos.second = rand() % 5;
 	if (playerNum == 1) {
-		player[playerNum-1]->SetPos(280 + spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
+		mode = 3;
+		player[mode]->SetPos(280 + spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
 		pos.first = 0 + spawnPos.first;
 		pos.second = 5 + spawnPos.second;
 	}
 	else if (playerNum == 2) {
-		player[playerNum - 1]->SetPos(952 - spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
+		mode = 2;
+		player[mode]->SetPos(952 - spawnPos.first * MAP_SIZE, 240 + spawnPos.second * MAP_SIZE);
 		pos.first = 14 - spawnPos.first;
 		pos.second = 5 + spawnPos.second;
 	}
@@ -37,7 +40,7 @@ Player::~Player()
 
 void Player::Render() {
 	ZeroIScene::Render();
-	player[playerNum - 1]->Render();
+	player[mode]->Render();
 }
 
 void Player::Update(float eTime) {

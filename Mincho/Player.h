@@ -11,10 +11,11 @@ class Player :
 public:
 	Player(int playerNum);
 	~Player();
-	ZeroSprite *player[2];
+	ZeroSprite *player[4];
 	int playerNum;
 	int qeek;
 	int hp;
+	int mode;
 	bool playerDo[2];
 	bool isInputDone();
 	pair<int, int> pos;

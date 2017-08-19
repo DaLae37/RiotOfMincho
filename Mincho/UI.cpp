@@ -30,6 +30,17 @@ UI::UI()
 		player1HeartRender[i] = true;
 		player2HeartRender[i] = true;
 	}
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 15; j++) {
+			if ((new Def)->map[i][j]) {
+				Tile[i][j] = new ZeroSprite("Resource/Background/enableTile.png");
+			}
+			else {
+				Tile[i][j] = new ZeroSprite("Resource/Background/unableTile.png");
+			}
+			Tile[i][j]->SetPos(280 + j * MAP_SIZE, 0 + i * MAP_SIZE);
+		}
+	}
 }
 
 UI::~UI()
@@ -38,6 +49,11 @@ UI::~UI()
 
 void UI::Render() {
 	ZeroIScene::Render();
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 15; j++) {
+			Tile[i][j]->Render();
+		}
+	}
 	player1->Render();
 	player2->Render();
 	for (int i = 0; i < 3; i++) {

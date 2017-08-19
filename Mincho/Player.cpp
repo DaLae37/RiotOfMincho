@@ -6,14 +6,14 @@ Player::Player(int playerNum)
 	this->playerNum = playerNum;
 	qeek = 0;
 	hp = 3;
-	for (int i = 0; i < 4; i++) {
-		player[i] = new ZeroSprite("Resource/Player/%d.png", i);
-	}
 	for (int i = 0; i < 2; i++) {
 		inputStackX[i] = 0;
 		inputStackY[i] = 0;
 		playerDo[i] = false;
 		statue[i] = STATUE::NONE;
+	}
+	for (int i = 0; i < 4; i++) {
+		player[i] = new ZeroSprite("Resource/Player/%d.png", i);
 	}
 	spawnPos.first = rand() % 5;
 	spawnPos.second = rand() % 5;
@@ -29,6 +29,9 @@ Player::Player(int playerNum)
 		pos.first = 14 - spawnPos.first;
 		pos.second = 5 + spawnPos.second;
 	}
+	for(int i=0; i<4; i++)
+		if (!(i == mode))
+			player[i]->SetPos(player[mode]->Pos());
 	tmpPos.first = pos.first;
 	tmpPos.second = pos.second;
 	printf("%d %d\n", tmpPos.first, tmpPos.second);
@@ -201,7 +204,7 @@ bool Player::isInputDone() {
 }
 
 bool Player::Check(int x, int y) {
-	if ((new Def)->map[x + tmpPos.first][y + tmpPos.second] && x + tmpPos.first <=14 && x + tmpPos.first >= 0 && y + tmpPos.second <= 14 && y + tmpPos.second >= 0) {
+	if ((new Def)->map[x + tmpPos.first][y + tmpPos.second] && x + tmpPos.first <= 15 && x + tmpPos.first >= 0 && y + tmpPos.second <= 15 && y + tmpPos.second >= 0) {
 		printf("¤¡¤º");
 		return true;
 	}

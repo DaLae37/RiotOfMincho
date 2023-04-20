@@ -1,2 +1,0 @@
-﻿  stdafx.cpp
-D:\Git\RiotOfMincho\Mincho\stdafx.h(28,10): fatal  error C1083: 포함 파일을 열 수 없습니다. 'd3dx9core.h': No such file or directory
